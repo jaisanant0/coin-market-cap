@@ -33,9 +33,9 @@ t10_coin_whole=pd.DataFrame()
 ticker=requests.get('https://api.coinmarketcap.com/v2/ticker/?start=1&limit=10')
 tjson_to_pyobj=json.loads(ticker.content.decode('utf-8'))
 t10_df=pd.DataFrame(tjson_to_pyobj)
-t10_df.to_json('/home/JAIS/Desktop/top10',orient='records')
+t10_df.to_json(path,orient='records')
 
-t10_file_df=pd.DataFrame((pd.DataFrame(pd.read_json('/home/JAIS/Desktop/top10')))['data'])
+t10_file_df=pd.DataFrame((pd.DataFrame(pd.read_json(path)))['data'])
 t10_file_data_df=pd.DataFrame(t10_file_df['data'])
 for i in range(10) :
     t10_coin=pd.DataFrame(t10_file_data_df.loc[i]['data'])
