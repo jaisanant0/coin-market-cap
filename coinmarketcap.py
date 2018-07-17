@@ -6,7 +6,7 @@ import sys
 if len(sys.argv) < 2:
     print("No path entered")
 path = str(sys.argv[1])
-print(path)
+#print(path)
 global_data=requests.get('https://api.coinmarketcap.com/v2/global')
 
 gdjson_to_pyobj=json.loads(global_data.content.decode('utf-8'))
