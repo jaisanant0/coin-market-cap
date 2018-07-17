@@ -4,4 +4,5 @@ The script fetches the details of the top 10 cryptocurrencies from coinmarketcap
 
 usage :
   In terminal :
+  
   python3 coinmarketcap.py (path to save CSV file)
