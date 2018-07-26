@@ -15,3 +15,6 @@ usage :
   In terminal :
   
   <b>python3 coinmarketcap.py (path to save CSV file) (path to save visualization) </b>
+  
+  <b>NOTE : </b>
+    use '/' to give filepath in windows OS.
