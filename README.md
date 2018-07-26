@@ -6,4 +6,4 @@ usage :
 
   In terminal :
   
-  python3 coinmarketcap.py (path to save CSV file)
+  python3 coinmarketcap.py <path to save CSV file> <path to save visualization)>
