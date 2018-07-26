@@ -1,11 +1,13 @@
 import requests
 import json
 import pandas as pd
+import matplotlib.pyplot as plt
 import sys
 
-if len(sys.argv) < 2:
-    print("No path entered")
+if len(sys.argv) < 3:
+    print("Both path not entered")
 path = str(sys.argv[1])
+figpath=str(sys.argv[2])
 #print(path)
 global_data=requests.get('https://api.coinmarketcap.com/v2/global')
 
@@ -46,7 +48,7 @@ for i in range(10) :
 sort_by_rank=(t10_coin_whole.sort_values('rank')).reset_index(drop=True)
 #print(sort_by_rank)
 coin_name_df=(pd.DataFrame(sort_by_rank['name'],columns=['name']).rename({'name' : 'Coin Name'},axis=1))
-#print(coin_name_df['Name'])
+#print(coin_name_df)
 rank_df=(pd.DataFrame(sort_by_rank['rank'],columns=['rank']).rename({'rank' : 'Coin Rank'},axis=1))
 #print(rank_df)
 c_supply_df=(pd.DataFrame(sort_by_rank['circulating_supply']).rename({'circulating_supply' : 'Circulating Supply'},axis=1))
@@ -79,3 +81,29 @@ whole_detail_df=pd.concat([rank_df.reset_index(drop=True),coin_name_df.reset_ind
                            ,p_chane_7d.reset_index(drop=True)],axis=1)
 whole_detail_df.to_csv(path,na_rep='Not Fixed',index=False)
 #print(whole_detail_df)
+
+#visualization
+coin_detail=pd.read_csv(path)
+#print(coin_detail)
+fig,ax=plt.subplots(2,2)
+plt.subplots_adjust(wspace=.2,hspace=.65)
+
+price.plot(ax=ax[0,0],xticks=coin_detail['Coin Name'].index,kind='bar',title='Price Chart',figsize=(15,10),colormap='plasma')
+ax[0,0].set_xticklabels(coin_detail['Coin Name'])
+
+m_cap.plot(ax=ax[0,1],xticks=coin_detail['Market Cap'].index,kind='bar',title='Market capital',colormap='autumn')
+ax[0,1].set_xticklabels(coin_detail['Coin Name'])
+
+volume_24h.plot(ax=ax[1,0],xticks=coin_detail['Volume 24h'].index,kind='bar',title='Volume 24H',colormap='gray')
+ax[1,0].set_xticklabels(coin_detail['Coin Name'])
+
+percentage_change=pd.concat([p_chane_1h.reset_index(drop=True),p_chane_24h.reset_index(drop=True),p_chane_7d.reset_index(drop=True)],axis=1)
+percentage_change.plot(ax=ax[1,1],xticks=coin_detail['Price Change 1h'].index,kind='bar',title='Percentage Change',legend='reverse')
+ax[1,1].set_xticklabels(coin_detail['Coin Name'])
+ax[1,1].legend(fontsize='xx-small')
+
+plt.show()
+plt.savefig(figpath+str('.png'),dpi=500,bbox_inches='tight')
+
+
+
