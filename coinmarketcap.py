@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 import sys
 
 if len(sys.argv) < 3:
-    print("Both path not entered")
+    print("[-] Both paths are not entered")
+    sys.exit(0)
 path = str(sys.argv[1])
 figpath=str(sys.argv[2])
 #print(path)
