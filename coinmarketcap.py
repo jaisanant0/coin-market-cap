@@ -104,7 +104,7 @@ ax[1,1].set_xticklabels(coin_detail['Coin Name'])
 ax[1,1].legend(fontsize='xx-small')
 
 plt.show()
-plt.savefig(figpath+str('.png'),dpi=500,bbox_inches='tight')
+plt.savefig(figpath,format='png',dpi=500,bbox_inches='tight')
 
 
 
